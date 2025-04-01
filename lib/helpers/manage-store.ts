@@ -1,5 +1,13 @@
 import Cookies from 'js-cookie';
 
+export const getAccessToken = (): string | undefined => {
+  return Cookies.get('access_token');
+};
+
+export const getRefreshToken = (): string | undefined => {
+  return Cookies.get('refresh_token');
+};
+
 export const useStorage = () => {
   const setCookie = (token: string, value: any, options?: any) => {
     Cookies.set(token, value, options);
@@ -22,19 +30,12 @@ export const useStorage = () => {
   const getCookie = (token: string) => {
     Cookies.get(token);
   };
-  const getAccessToken = (): string | undefined => {
-    return Cookies.get('access_token');
-  };
-  const getRefreshToken = (): string | undefined => {
-    return Cookies.get('refresh_token');
-  };
 
   return {
     setCookie,
     removeCookie,
     getCookie,
     getAccessToken,
-    getRefreshToken,
     setRefreshToken,
     setAccessToken,
     removeRefreshToken,

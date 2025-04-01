@@ -30,15 +30,19 @@ import { DataTablePagination } from './data-table-pagination';
 import { DataTableToolbar } from './data-table-toolbar';
 import EmptyStock from './empty-stock-state';
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData extends { id: string | number }, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   loading?: boolean;
   error?: boolean | null;
 }
 
-export function DataTable<TData, TValue>({
-  columns,
+export interface TableMeta<TData> {
+  updateSelectedRow: (updatedData: Partial<TData>) => void;
+}
+
+export function DataTable<TData extends { id: string | number }, TValue>({
+  columns: baseColumns,
   data,
   loading,
   error,
@@ -54,6 +58,33 @@ export function DataTable<TData, TValue>({
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
   const [isAddStockModalOpen, setIsAddStockModalOpen] = React.useState(false);
 
+  const updateSelectedRow = React.useCallback((updatedData: Partial<TData>) => {
+    setSelectedRow((prev) => {
+      if (prev && prev.id === updatedData.id) {
+        return { ...prev, ...updatedData };
+      }
+      return prev;
+    });
+  }, []);
+
+  const columns = React.useMemo(() => {
+    return baseColumns.map((col) => ({
+      ...col,
+      cell: (props: any) => {
+        if (typeof col.cell === 'function') {
+          return col.cell({
+            ...props,
+            table: {
+              ...props.table,
+              options: { ...props.table.options, meta: { updateSelectedRow } },
+            },
+          });
+        }
+        return props.getValue();
+      },
+    }));
+  }, [baseColumns, updateSelectedRow]);
+
   const table = useReactTable({
     data,
     columns,
@@ -63,6 +94,9 @@ export function DataTable<TData, TValue>({
       rowSelection,
       columnFilters,
     },
+    meta: {
+      updateSelectedRow,
+    } as TableMeta<TData>,
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
@@ -137,7 +171,7 @@ export function DataTable<TData, TValue>({
                 ) : table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
                     <TableRow
-                      key={row.id}
+                      key={row.original.id}
                       data-state={row.getIsSelected() && 'selected'}
                       onClick={() => handleRowClick(row.original)}
                       className='hover:bg-gray-50 cursor-pointer'

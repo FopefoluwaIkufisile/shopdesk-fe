@@ -1,6 +1,6 @@
-import type { UserType } from "@/types/user";
-import { createSlice } from "@reduxjs/toolkit";
-import type { RootState } from "@/redux/store"; // Adjust the import path as necessary
+import type { UserType } from '@/types/user';
+import { createSlice } from '@reduxjs/toolkit';
+import type { RootState } from '@/redux/store'; // Adjust the import path as necessary
 
 interface InitialType {
   isAuthenticated: boolean;
@@ -20,7 +20,7 @@ const initialState: InitialType = {
 } as InitialType;
 
 const authSlice = createSlice({
-  name: "auth",
+  name: 'auth',
   initialState,
   reducers: {
     logout: () => initialState,

@@ -1,16 +1,18 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import menu from '@/public/icons/menu.svg';
 import Image from 'next/image';
 import Link from 'next/link';
-import menu from '@/public/icons/menu.svg';
-import Logo from './logo';
 import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
+import AuthButtons from './auth-buttons';
+import Logo from './logo';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuBtnRef = useRef<HTMLButtonElement>(null);
+
   const router = useRouter();
 
   useEffect(() => {
@@ -59,25 +61,46 @@ const Header = () => {
             Contact Us
           </Link>
         </nav>
+        <div
+          className='max-[900px]:w-[287px] max-[900px]:h-13 flex justify-end'
+          style={{ minWidth: '287px', minHeight: '50px' }}
+        >
+          <AuthButtons />
+        </div>
+        {/* <div className="flex items-center gap-4 max-[900px]:hidden">
+          
+           
+              <button
+                type="button"
+                onClick={() => router.push("/sign-in")}
+                className="btn-outline"
+              >
+                Sign in
+              </button>
+              <button
+                type="button"
+                onClick={() => router.push("/sign-up")}
+                className="btn-primary hover:bg-gray-800 transition"
+              >
+                Start for free
+              </button>
+        </div> */}
 
-        <div className='flex items-center gap-4 max-[900px]:hidden'>
-          <button
-
+        {/* <button
             type="button"
             onClick={() => router.push("/sign-in")}
             className="btn-outline"
-
           >
             Sign in
           </button>
           <button
-            type='button'
-            onClick={() => router.push('/sign-up')}
-            className='btn-primary hover:bg-gray-800 transition'
+            type="button"
+            onClick={() => router.push("/sign-up")}
+            className="btn-primary hover:bg-gray-800 transition"
           >
             Start for free
-          </button>
-        </div>
+          </button> */}
+        {/* </div> */}
 
         <div className='flex items-center gap-2 min-[900px]:hidden'>
           <button
@@ -147,13 +170,13 @@ const Header = () => {
             className='btn-outline mb-2 hover:bg-gray-100 transition w-full'
             onClick={() => setIsOpen(false)}
           >
-            <Link href="/sign-in">Sign In</Link>
+            <Link href='/sign-in'>Sign In</Link>
           </button>
           <button
             className='btn-primary hover:bg-gray-800 transition w-full'
             onClick={() => setIsOpen(false)}
           >
-            <Link href="/sign-up">Start for free</Link>
+            <Link href='/sign-up'>Start for free</Link>
           </button>
         </div>
       )}

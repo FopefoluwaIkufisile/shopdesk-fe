@@ -1,0 +1,3 @@
+echo "[HUSKY]: Running commit message lint script..."
+
+npx --no -- commitlint --edit "$1"

@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { Provider } from "react-redux";
+import { Provider } from 'react-redux';
 
 // Adjust the path as necessary
-import { store } from "@/redux/store";
+import { store } from '@/redux/store';
 
 export default function ReduxProvider({
   children,

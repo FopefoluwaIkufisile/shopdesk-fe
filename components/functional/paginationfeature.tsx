@@ -6,14 +6,14 @@ import {
   PaginationNext,
   PaginationPrevious,
   PaginationEllipsis,
-} from "@/components/ui/pagination";
+} from '@/components/ui/pagination';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ChevronDown } from "lucide-react";
+} from '@/components/ui/dropdown-menu';
+// import { ChevronDown } from "lucide-react";
 
 type PaginationProps = {
   totalItems: number;
@@ -34,9 +34,9 @@ const PaginationFeature = ({
 }: PaginationProps) => {
   const itemsPerPageOptions = [5, 10, 15, 25, 50];
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-  const displayedItemsCount = endIndex - startIndex;
+  // const startIndex = (currentPage - 1) * itemsPerPage;
+  // const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+  // const displayedItemsCount = endIndex - startIndex;
 
   const handlePageClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -49,27 +49,27 @@ const PaginationFeature = ({
   };
 
   return (
-    <div className="w-full flex flex-col border border-t-2 min-[500px]:flex-row min-[500px]:items-center min-[500px]:justify-between py-2 px-1.5 pl-4 gap-2 text-[#32475C99]">
+    <div className='w-full flex flex-col border border-t-2 min-[500px]:flex-row min-[500px]:items-center min-[500px]:justify-between py-2 px-1.5 pl-4 gap-2 text-[#32475C99]'>
       {/* Items per page and count */}
-      <span className="text-sm flex items-center justify-center flex-wrap whitespace-nowrap">
+      <span className='text-sm flex items-center justify-center flex-wrap whitespace-nowrap'>
         <span>
           You have
-          <span className="font-medium mx-1 text-[#2A2A2A]">{totalItems}</span>
+          <span className='font-medium mx-1 text-[#2A2A2A]'>{totalItems}</span>
         </span>
-        stock (Displaying{""}
+        stock (Displaying{''}
         {/* <span className="font-medium mx-1 text-[#2A2A2A]">
           {displayedItemsCount > 0 ? `${startIndex + 1}-${endIndex}` : 0}
         </span>{" "}
         of <span className="font-medium mx-1 text-[#2A2A2A]">{totalItems}</span> */}
         <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center font-medium mx-1 text-[#2A2A2A]">
+          <DropdownMenuTrigger className='flex items-center font-medium mx-1 text-[#2A2A2A]'>
             {itemsPerPage}
             <svg
-              className="w-3 h-3 ml-1 text-[#32475C8A]"
-              viewBox="0 0 10 10"
-              fill="currentColor"
+              className='w-3 h-3 ml-1 text-[#32475C8A]'
+              viewBox='0 0 10 10'
+              fill='currentColor'
             >
-              <path d="M5 7L1 3h8z" />
+              <path d='M5 7L1 3h8z' />
             </svg>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
@@ -77,7 +77,7 @@ const PaginationFeature = ({
               <DropdownMenuItem
                 key={count}
                 onClick={() => onItemsPerPageChange(count)}
-                className={itemsPerPage === count ? "bg-gray-100" : ""}
+                className={itemsPerPage === count ? 'bg-gray-100' : ''}
               >
                 {count}
               </DropdownMenuItem>
@@ -89,9 +89,9 @@ const PaginationFeature = ({
 
       {/* Pagination controls */}
       {totalPages > 1 && (
-        <div className="w-full min-[500px]:w-auto">
-          <Pagination className="w-full">
-            <PaginationContent className="w-full flex justify-between min-[500px]:justify-center gap-1">
+        <div className='w-full min-[500px]:w-auto'>
+          <Pagination className='w-full'>
+            <PaginationContent className='w-full flex justify-between min-[500px]:justify-center gap-1'>
               {/* Previous button */}
               {currentPage > 1 && (
                 <PaginationItem>
@@ -103,7 +103,7 @@ const PaginationFeature = ({
 
               {/* First page */}
               {currentPage > 2 && (
-                <PaginationItem className="hidden sm:inline-flex">
+                <PaginationItem className='hidden sm:inline-flex'>
                   <PaginationLink onClick={(e) => handlePageClick(e, 1)}>
                     1
                   </PaginationLink>
@@ -112,7 +112,7 @@ const PaginationFeature = ({
 
               {/* Ellipsis before current page */}
               {currentPage > 3 && (
-                <PaginationItem className="hidden md:inline-flex">
+                <PaginationItem className='hidden md:inline-flex'>
                   <PaginationEllipsis />
                 </PaginationItem>
               )}
@@ -148,14 +148,14 @@ const PaginationFeature = ({
 
               {/* Ellipsis after current page */}
               {currentPage < totalPages - 2 && (
-                <PaginationItem className="hidden md:inline-flex">
+                <PaginationItem className='hidden md:inline-flex'>
                   <PaginationEllipsis />
                 </PaginationItem>
               )}
 
               {/* Last page */}
               {currentPage < totalPages - 1 && (
-                <PaginationItem className="hidden sm:inline-flex">
+                <PaginationItem className='hidden sm:inline-flex'>
                   <PaginationLink
                     onClick={(e) => handlePageClick(e, totalPages)}
                   >
@@ -168,7 +168,7 @@ const PaginationFeature = ({
               {currentPage < totalPages && (
                 <PaginationItem>
                   <PaginationNext
-                    pageNum={currentPage}
+                    // pageNum={currentPage}
                     onClick={(e) => handlePageClick(e, currentPage + 1)}
                   />
                 </PaginationItem>

@@ -27,8 +27,8 @@
 
 // export default StocksSlice.reducer;
 
-import type { StockItem } from "@/types/stocks";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { StockItem } from '@/types/stocks';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface InitialState {
   isLoading: boolean;
@@ -43,7 +43,7 @@ const initialState: InitialState = {
 };
 
 const stocksSlice = createSlice({
-  name: "stocks",
+  name: 'stocks',
   initialState,
   reducers: {
     startStocksLoading: (state) => {

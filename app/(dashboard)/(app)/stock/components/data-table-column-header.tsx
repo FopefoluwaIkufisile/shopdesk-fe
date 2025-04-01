@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/ui/icons";
-import { cn } from "@/lib/utils";
-import type { Column } from "@tanstack/react-table";
+import { Button } from '@/components/ui/button';
+import { Icons } from '@/components/ui/icons';
+import { cn } from '@/lib/utils';
+import type { Column } from '@tanstack/react-table';
 
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -21,19 +21,19 @@ export function DataTableColumnHeader<TData, TValue>({
   }
 
   return (
-    <div className={cn("flex items-center space-x-2", className)}>
+    <div className={cn('flex items-center space-x-2', className)}>
       <Button
-        variant="ghost"
-        size="sm"
-        className=" h-auto p-5 data-[state=open]:bg-accent w-full rounded-none"
+        variant='ghost'
+        size='sm'
+        className=' h-auto p-5 data-[state=open]:bg-accent w-full rounded-none'
         onClick={() => column.toggleSorting()}
       >
-        <span className="uppercase md:text-lg font-bold text-[#090F1C]">
+        <span className='uppercase md:text-lg font-bold text-[#090F1C]'>
           {children ? children : title}
         </span>
-        {column.getIsSorted() === "desc" ? (
+        {column.getIsSorted() === 'desc' ? (
           <Icons.ArrowFilledDown />
-        ) : column.getIsSorted() === "asc" ? (
+        ) : column.getIsSorted() === 'asc' ? (
           <Icons.ArrowFilledUp />
         ) : (
           <Icons.ArrowSort />

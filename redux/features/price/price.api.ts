@@ -1,4 +1,4 @@
-import { api } from "@/redux/api";
+import { api } from '@/redux/api';
 
 export interface PriceBase {
   name: string;
@@ -45,14 +45,14 @@ export const pricesApi = api.injectEndpoints({
         { product_id: string; organization_id: string }
       >({
         query: ({ product_id, organization_id }) => ({
-          url: "productPrices",
-          method: "GET",
+          url: 'productPrices',
+          method: 'GET',
           params: {
             product_id,
             organization_id,
           },
         }),
-        providesTags: ["Price"],
+        providesTags: ['Price'],
       }),
       createPrice: builder.mutation<CreatePriceResponse, CreatePriceRequest>({
         query: ({
@@ -63,8 +63,8 @@ export const pricesApi = api.injectEndpoints({
           discounted_price,
           currency_code,
         }) => ({
-          url: "productPrices",
-          method: "POST",
+          url: 'productPrices',
+          method: 'POST',
           body: {
             name,
             price,
@@ -81,7 +81,7 @@ export const pricesApi = api.injectEndpoints({
             sunday: true,
           },
         }),
-        invalidatesTags: ["Price"],
+        invalidatesTags: ['Price'],
       }),
     };
   },

@@ -18,5 +18,3 @@ fs.writeFileSync(
   path.join(__dirname, 'stocks.json'),
   JSON.stringify(stocks, null, 2)
 );
-
-

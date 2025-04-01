@@ -1,6 +1,6 @@
-"use server";
+'use server';
 
-import { cookies } from "next/headers";
+import { cookies } from 'next/headers';
 
 export async function fetchWeekdaySalesCount(
   organization_id: string,
@@ -11,13 +11,13 @@ export async function fetchWeekdaySalesCount(
 ) {
   try {
     const cookieStore = await cookies();
-    const accessToken = cookieStore.get("access_token")?.value;
+    const accessToken = cookieStore.get('access_token')?.value;
 
     if (!organization_id || !product_id) {
-      return { error: "Missing required query parameters" };
+      return { error: 'Missing required query parameters' };
     }
 
-    const url = new URL("https://api.timbu.cloud/sales/weekday-count");
+    const url = new URL('https://api.timbu.cloud/sales/weekday-count');
     const params = {
       organization_id,
       product_id,
@@ -33,15 +33,15 @@ export async function fetchWeekdaySalesCount(
 
     // ensure at least one parameter is provided
     if (!url.searchParams.toString()) {
-      return { error: "At least one query parameter is required." };
+      return { error: 'At least one query parameter is required.' };
     }
 
     const res = await fetch(url.toString(), {
-      method: "GET",
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     });
 
@@ -51,7 +51,7 @@ export async function fetchWeekdaySalesCount(
 
     return await res.json();
   } catch (error: any) {
-    console.error("Error in server action:", error);
-    throw new Error(error?.message || "Internal Server Error");
+    console.error('Error in server action:', error);
+    throw new Error(error?.message || 'Internal Server Error');
   }
 }

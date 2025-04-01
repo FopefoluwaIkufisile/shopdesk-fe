@@ -1,0 +1,35 @@
+
+export HUSKY_SKIP_HOOKS=1
+
+CHANGED_FILES=$(git diff --cached --name-only --diff-filter=d)
+
+skip_dirs=".husky|.github|.vscode"  # Directories to skip, separated by "|"
+
+# Log the changed files
+echo "[HUSKY]: Changed files: $CHANGED_FILES"
+
+unstaged_before="$(git diff --name-only)"
+echo "[HUSKY]: unstaged_before: $unstaged_before"
+
+# Function to check if a directory is present in the list of changed files
+has_changed_directory() {
+  echo "$CHANGED_FILES" | grep -qE "$1/"
+}
+
+# Run different scripts based on changed directories
+run_scripts() {
+  echo "[HUSKY]: Running npm scripts..."
+  npm run format
+  npm run lint:fix
+  npm run type-check
+  # npm run version:update --staged
+}
+
+# Check if any committed files are outside the skip_dirs
+if echo "$CHANGED_FILES" | grep -qvE "($skip_dirs)/"; then
+  echo "[HUSKY]: Running prettier..."
+  run_scripts
+else
+  # Default script if no specific directory matches
+  echo "[HUSKY]: Skipped fmt because changes are in excluded directories."
+fi

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import Account from "./components/Account";
+import Account from './components/Account';
 
 function Settings() {
   return <Account />;

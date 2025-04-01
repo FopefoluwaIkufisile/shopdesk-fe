@@ -1,21 +1,21 @@
-"use client";
-import closeIcon from "@/public/icons/close.svg";
-import logo from "@/public/shopdesk-logo.svg";
-import { useCreateOrgMutation } from "@/redux/features/auth/auth.api";
+'use client';
+import closeIcon from '@/public/icons/close.svg';
+import logo from '@/public/shopdesk-logo.svg';
+import { useCreateOrgMutation } from '@/redux/features/auth/auth.api';
 //import { createOrg } from "@/services/auth";
-import { RootState } from "@/redux/store";
-import { OrgType as OriginalOrgType } from "@/types/org";
-import { motion } from "framer-motion";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { FaChevronDown } from "react-icons/fa";
+import { RootState } from '@/redux/store';
+import { OrgType as OriginalOrgType } from '@/types/org';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { FaChevronDown } from 'react-icons/fa';
 import {
   TypedUseSelectorHook,
   useSelector as useReduxSelector,
-} from "react-redux";
-import { z } from "zod";
+} from 'react-redux';
+import { z } from 'zod';
 
 interface OrgType extends OriginalOrgType {
   orgName?: string;
@@ -28,93 +28,93 @@ interface OrgType extends OriginalOrgType {
 
 export const currencies = [
   {
-    name: "Nigerian Naira",
-    code: "NGN",
-    symbol: "₦",
-    flag: "/modal-images/nigeria-flag.svg",
+    name: 'Nigerian Naira',
+    code: 'NGN',
+    symbol: '₦',
+    flag: '/modal-images/nigeria-flag.svg',
   },
   {
-    name: "Egyptian Pound",
-    code: "EGP",
-    symbol: "ج.م",
-    flag: "/modal-images/egypt-flag.svg",
+    name: 'Egyptian Pound',
+    code: 'EGP',
+    symbol: 'ج.م',
+    flag: '/modal-images/egypt-flag.svg',
   },
   {
-    name: "Ethiopian Birr",
-    code: "ETB",
-    symbol: "Br",
-    flag: "/modal-images/ethiopia-flag.svg",
+    name: 'Ethiopian Birr',
+    code: 'ETB',
+    symbol: 'Br',
+    flag: '/modal-images/ethiopia-flag.svg',
   },
   {
-    name: "Ghanaian Cedi",
-    code: "GHS",
-    symbol: "₵",
-    flag: "/modal-images/ghana-flag.svg",
+    name: 'Ghanaian Cedi',
+    code: 'GHS',
+    symbol: '₵',
+    flag: '/modal-images/ghana-flag.svg',
   },
   {
-    name: "Indian Rupee",
-    code: "INR",
-    symbol: "₹",
-    flag: "/modal-images/india-flag.svg",
+    name: 'Indian Rupee',
+    code: 'INR',
+    symbol: '₹',
+    flag: '/modal-images/india-flag.svg',
   },
   {
-    name: "Kenyan Shilling",
-    code: "KES",
-    symbol: "KSh",
-    flag: "/modal-images/kenya-flag.svg",
+    name: 'Kenyan Shilling',
+    code: 'KES',
+    symbol: 'KSh',
+    flag: '/modal-images/kenya-flag.svg',
   },
 ];
 export const countries = [
   {
     id: 1,
-    name: "Nigeria",
+    name: 'Nigeria',
   },
   {
     id: 2,
-    name: "Ghana",
+    name: 'Ghana',
   },
   {
     id: 3,
-    name: "Canada",
+    name: 'Canada',
   },
   {
     id: 4,
-    name: "United Kingdom",
+    name: 'United Kingdom',
   },
   {
     id: 5,
-    name: "China",
+    name: 'China',
   },
   {
     id: 6,
-    name: "Australia",
+    name: 'Australia',
   },
 ];
 
 export const states = [
   {
     id: 1,
-    name: "Lagos",
+    name: 'Lagos',
   },
   {
     id: 2,
-    name: "FCT",
+    name: 'FCT',
   },
   {
     id: 3,
-    name: "Rivers",
+    name: 'Rivers',
   },
   {
     id: 4,
-    name: "Enugu",
+    name: 'Enugu',
   },
   {
     id: 5,
-    name: "Kano",
+    name: 'Kano',
   },
   {
     id: 6,
-    name: "Benue",
+    name: 'Benue',
   },
 ];
 interface Currency {
@@ -133,12 +133,12 @@ interface State {
 }
 
 const formSchema = z.object({
-  orgName: z.string().nonempty("Organization name is required."),
-  businessType: z.string().nonempty("Business type is required."),
-  currency: z.string().nonempty("Currency is required."),
-  country: z.string().nonempty("Country is required."),
-  state: z.string().nonempty("State is required."),
-  address: z.string().nonempty("Full address is required."),
+  orgName: z.string().nonempty('Organization name is required.'),
+  businessType: z.string().nonempty('Business type is required.'),
+  currency: z.string().nonempty('Currency is required.'),
+  country: z.string().nonempty('Country is required.'),
+  state: z.string().nonempty('State is required.'),
+  address: z.string().nonempty('Full address is required.'),
 });
 
 const CreateOrganization = () => {
@@ -157,7 +157,7 @@ const CreateOrganization = () => {
   const toggleStateModal = () => {
     setIsStateModalOpen(!isStateModalOpen);
   };
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const filteredCurrencies = currencies.filter((currency) =>
     currency.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -168,7 +168,7 @@ const CreateOrganization = () => {
     state.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const [createOrg, { isLoading: isSignupLoading }] = useCreateOrgMutation();
+  const [createOrg] = useCreateOrgMutation();
 
   const handleCurrencySelect = useCallback((currency: Currency) => {
     setFormData((prev) => ({
@@ -217,16 +217,16 @@ const CreateOrganization = () => {
   } | null>(null);
 
   const [formData, setFormData] = useState<Partial<OrgType>>({
-    orgName: "",
-    businessType: "",
-    currency: "",
-    country: "",
-    state: "",
-    address: "",
+    orgName: '',
+    businessType: '',
+    currency: '',
+    country: '',
+    state: '',
+    address: '',
   });
 
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
   const [touched, setTouched] = useState({
     orgName: false,
     businessType: false,
@@ -250,7 +250,7 @@ const CreateOrganization = () => {
 
   const router = useRouter();
   const useSelector: TypedUseSelectorHook<RootState> = useReduxSelector;
-  const accessToken = useSelector((state: RootState) => state.auth.token) || "";
+  const accessToken = useSelector((state: RootState) => state.auth.token) || '';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -271,16 +271,16 @@ const CreateOrganization = () => {
     };
 
     const response = await createOrg(dataForm);
-    if ("data" in response) {
-      router.push("/stock");
+    if ('data' in response) {
+      router.push('/stock');
     } else {
-      if (response.error && "data" in response.error) {
+      if (response.error && 'data' in response.error) {
         setError(
           (response.error.data as { message: string }).message ||
-            "An unknown error occurred."
+            'An unknown error occurred.'
         );
       } else {
-        setError("An unknown error occurred.");
+        setError('An unknown error occurred.');
       }
     }
   };
@@ -301,7 +301,7 @@ const CreateOrganization = () => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: "spring", stiffness: 100 },
+      transition: { type: 'spring', stiffness: 100 },
     },
   };
 
@@ -310,7 +310,7 @@ const CreateOrganization = () => {
     visible: {
       opacity: 1,
       x: 0,
-      transition: { type: "spring", stiffness: 100, delay: 0.3 },
+      transition: { type: 'spring', stiffness: 100, delay: 0.3 },
     },
   };
 
@@ -346,100 +346,100 @@ const CreateOrganization = () => {
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isCurrencyModalOpen, isCountryModalOpen, isStateModalOpen]);
 
   return (
-    <div className="flex flex-col h-dvh w-full bg-white md:bg-[url(/auth/bg-pattern.svg)] bg-contain bg-no-repeat bg-right px-4 sm:px-8 md:px-16">
-      <main className="size-full flex justify-center  md:items-center mt-16">
+    <div className='flex flex-col h-dvh w-full bg-white md:bg-[url(/auth/bg-pattern.svg)] bg-contain bg-no-repeat bg-right px-4 sm:px-8 md:px-16'>
+      <main className='size-full flex justify-center  md:items-center mt-16'>
         {/* right */}
         <motion.div
-          className="max-w-[760px] w-full md:p-[24px] "
-          initial="hidden"
-          animate="visible"
+          className='max-w-[760px] w-full md:p-[24px] '
+          initial='hidden'
+          animate='visible'
           variants={formVariants}
         >
           <motion.div
-            className="w-full p-[10px] flex flex-col items-center gap-10 "
-            initial={{ opacity: 0, backdropFilter: "blur(0px)" }}
+            className='w-full p-[10px] flex flex-col items-center gap-10 '
+            initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
             animate={{
               opacity: 1,
             }}
             transition={{ duration: 0.8 }}
           >
-            {" "}
-            <Image src={logo} alt="logo" width={160} height={10} />
+            {' '}
+            <Image src={logo} alt='logo' width={160} height={10} />
             <motion.div
-              className=" justify-between text-center flex gap-4 mb-6"
+              className=' justify-between text-center flex gap-4 mb-6'
               variants={itemVariants}
             >
-              <div className="flex flex-col gap-4">
-                <h2 className=" md:text-2xl text-[20px] font-semibold">
-                  {" "}
+              <div className='flex flex-col gap-4'>
+                <h2 className=' md:text-2xl text-[20px] font-semibold'>
+                  {' '}
                   Give Your Shop a Name
                 </h2>
-                <p className="md:text-lg text-sm font-normal text-[#717171]">
+                <p className='md:text-lg text-sm font-normal text-[#717171]'>
                   This helps us keep your records intact for when you are ready
                   to sign up.
                 </p>
               </div>
               <Link
-                href="/"
-                className="border border-[#171717] rounded-[9px] p-[9px] flex items-center justify-center w-[34px] h-[34px]"
+                href='/'
+                className='border border-[#171717] rounded-[9px] p-[9px] flex items-center justify-center w-[34px] h-[34px]'
               >
                 <Image
                   src={closeIcon}
-                  alt="Close"
+                  alt='Close'
                   width={16}
                   height={16}
-                  className="  "
+                  className='  '
                 />
               </Link>
             </motion.div>
             <motion.form
               onSubmit={handleSubmit}
-              className="flex flex-col gap-[10px] w-full"
+              className='flex flex-col gap-[10px] w-full'
               variants={containerVariants}
             >
-              <div className="flex flex-col gap-4">
+              <div className='flex flex-col gap-4'>
                 {/* Organization Name Field */}
                 <motion.div
-                  className="flex flex-col gap-1"
+                  className='flex flex-col gap-1'
                   variants={itemVariants}
                 >
                   <label
-                    htmlFor="orgName"
-                    className="block text-sm font-medium text-[#717171]"
+                    htmlFor='orgName'
+                    className='block text-sm font-medium text-[#717171]'
                   >
-                    Name <span className="text-[#FF1925]">*</span>
+                    Name <span className='text-[#FF1925]'>*</span>
                   </label>
                   <motion.input
-                    type="text"
-                    id="orgName"
+                    type='text'
+                    id='orgName'
                     className={`w-full p-4 border rounded-[9px] outline-none text-[#b8b8b8] md:text-xl text-base
                       ${
                         error && !formData.orgName
-                          ? "border-red-500"
-                          : "border-gray-300"
+                          ? 'border-red-500'
+                          : 'border-gray-300'
                       }
                       ${
                         formData.orgName
-                          ? "border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]"
-                          : ""
+                          ? 'border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]'
+                          : ''
                       }`}
-                    placeholder="Input Name"
+                    placeholder='Input Name'
                     value={formData.orgName}
                     onChange={handleChange}
-                    onBlur={() => handleBlur("orgName")}
+                    onBlur={() => handleBlur('orgName')}
                     whileFocus={{ scale: 1.01 }}
-                    transition={{ type: "spring", stiffness: 400 }}
+                    transition={{ type: 'spring', stiffness: 400 }}
                   />
                   {error && !formData.orgName && (
                     <motion.p
-                      className="text-red-500 text-xs"
+                      className='text-red-500 text-xs'
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
@@ -451,39 +451,39 @@ const CreateOrganization = () => {
 
                 {/* Business Type Field */}
                 <motion.div
-                  className="flex flex-col gap-1"
+                  className='flex flex-col gap-1'
                   variants={itemVariants}
                 >
                   <label
-                    htmlFor="businessType"
-                    className="block text-sm font-medium text-[#717171]"
+                    htmlFor='businessType'
+                    className='block text-sm font-medium text-[#717171]'
                   >
-                    Business Type <span className="text-[#FF1925]">*</span>
+                    Business Type <span className='text-[#FF1925]'>*</span>
                   </label>
                   <motion.input
-                    type="text"
-                    id="businessType"
+                    type='text'
+                    id='businessType'
                     className={`w-full p-4 border rounded-[9px] outline-none text-[#b8b8b8] md:text-xl text-base
                       ${
                         error && !formData.businessType
-                          ? "border-red-500"
-                          : "border-gray-300"
+                          ? 'border-red-500'
+                          : 'border-gray-300'
                       }
                       ${
                         formData.businessType
-                          ? "border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]"
-                          : ""
+                          ? 'border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]'
+                          : ''
                       }`}
-                    placeholder="E.g. Omega Furniture Shop"
+                    placeholder='E.g. Omega Furniture Shop'
                     value={formData.businessType}
                     onChange={handleChange}
-                    onBlur={() => handleBlur("businessType")}
+                    onBlur={() => handleBlur('businessType')}
                     whileFocus={{ scale: 1.01 }}
-                    transition={{ type: "spring", stiffness: 400 }}
+                    transition={{ type: 'spring', stiffness: 400 }}
                   />
                   {error && !formData.businessType && (
                     <motion.p
-                      className="text-red-500 text-xs"
+                      className='text-red-500 text-xs'
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
@@ -493,48 +493,48 @@ const CreateOrganization = () => {
                   )}
                 </motion.div>
 
-                <div className="flex flex-col md:flex-row w-full gap-2.5 md:gap-10">
+                <div className='flex flex-col md:flex-row w-full gap-2.5 md:gap-10'>
                   {/* Currency Field */}
-                  <motion.div className="flex flex-col gap-1 relative w-full">
+                  <motion.div className='flex flex-col gap-1 relative w-full'>
                     <label
-                      htmlFor="currency"
-                      className="block text-sm font-medium text-[#717171]"
+                      htmlFor='currency'
+                      className='block text-sm font-medium text-[#717171]'
                     >
-                      Currency Code <span className="text-[#FF1925]">*</span>
+                      Currency Code <span className='text-[#FF1925]'>*</span>
                     </label>
 
                     <motion.div
                       className={`flex items-center w-full p-4 border rounded-[9px] text-xl cursor-pointer
-          ${error && !formData.currency ? "border-red-500" : "border-gray-300"}
+          ${error && !formData.currency ? 'border-red-500' : 'border-gray-300'}
                       ${
                         formData.currency
-                          ? "border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]"
-                          : ""
+                          ? 'border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]'
+                          : ''
                       }`}
                       onClick={toggleCurrencyModal}
                     >
-                      <span className="w-full text-[#b8b8b8] md:text-xl text-base">
+                      <span className='w-full text-[#b8b8b8] md:text-xl text-base'>
                         {selectedCurrency
                           ? `${selectedCurrency.name} (${selectedCurrency.symbol})`
-                          : "Select Currency Code"}
+                          : 'Select Currency Code'}
                       </span>
 
                       {selectedCurrency && (
                         <Image
                           src={selectedCurrency.flag}
                           alt={`${selectedCurrency.name} Flag`}
-                          className="w-5 h-5 md:w-6 md:h-6"
+                          className='w-5 h-5 md:w-6 md:h-6'
                           width={20}
                           height={20}
                         />
                       )}
 
-                      <FaChevronDown className="w-[10px] h-[10px] text-[#b8b8b8] ml-2" />
+                      <FaChevronDown className='w-[10px] h-[10px] text-[#b8b8b8] ml-2' />
                     </motion.div>
 
                     {touched.currency && !selectedCurrency && (
                       <motion.p
-                        className="text-red-500 text-xs"
+                        className='text-red-500 text-xs'
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
@@ -546,34 +546,34 @@ const CreateOrganization = () => {
                     {isCurrencyModalOpen && (
                       <div
                         ref={currencyRef}
-                        className="absolute top-full left-0 w-[298px] bg-white rounded-lg backdrop-blur-sm border shadow-lg z-10"
+                        className='absolute top-full left-0 w-[298px] bg-white rounded-lg backdrop-blur-sm border shadow-lg z-10'
                       >
-                        <div className="p-4">
+                        <div className='p-4'>
                           <input
-                            type="text"
-                            className="w-full rounded-[10px] p-2 outline-none placeholder:text-[#B8B8B8] text-[16px] border"
-                            placeholder="Search Currency"
+                            type='text'
+                            className='w-full rounded-[10px] p-2 outline-none placeholder:text-[#B8B8B8] text-[16px] border'
+                            placeholder='Search Currency'
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                           />
                         </div>
 
-                        <div className="h-[200px] overflow-y-auto px-[20px] py-3">
+                        <div className='h-[200px] overflow-y-auto px-[20px] py-3'>
                           {filteredCurrencies.map((currency) => (
                             <div
                               key={currency.code}
-                              className="flex items-center p-2 hover:bg-gray-100 cursor-pointer"
+                              className='flex items-center p-2 hover:bg-gray-100 cursor-pointer'
                               onClick={() => handleCurrencySelect(currency)}
                             >
                               <Image
                                 src={currency.flag}
                                 alt={`${currency.name} Flag`}
-                                className="w-8 h-8 rounded-full object-cover mr-3"
+                                className='w-8 h-8 rounded-full object-cover mr-3'
                                 width={32}
                                 height={32}
                               />
-                              <p className="text-[14px]">
-                                {currency.name} ({currency.code}){" "}
+                              <p className='text-[14px]'>
+                                {currency.name} ({currency.code}){' '}
                                 <span>{currency.symbol}</span>
                               </p>
                             </div>
@@ -584,40 +584,40 @@ const CreateOrganization = () => {
                   </motion.div>
 
                   {/* Country Field */}
-                  <motion.div className="flex flex-col gap-1 relative w-full">
+                  <motion.div className='flex flex-col gap-1 relative w-full'>
                     <label
-                      htmlFor="country"
-                      className="block text-sm font-medium text-[#717171]"
+                      htmlFor='country'
+                      className='block text-sm font-medium text-[#717171]'
                     >
-                      Select Country <span className="text-[#FF1925]">*</span>
+                      Select Country <span className='text-[#FF1925]'>*</span>
                     </label>
 
                     <motion.div
                       className={`flex items-center w-full p-4 border rounded-[9px] text-xl cursor-pointer
           ${
             touched.country && !formData.country
-              ? "border-red-500"
-              : "border-gray-300"
+              ? 'border-red-500'
+              : 'border-gray-300'
           }
                       ${
                         formData.country
-                          ? "border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]"
-                          : ""
+                          ? 'border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]'
+                          : ''
                       }`}
                       onClick={toggleCountryModal}
                     >
-                      <span className="w-full text-[#b8b8b8] md:text-xl text-base">
+                      <span className='w-full text-[#b8b8b8] md:text-xl text-base'>
                         {selectedCountry
                           ? `${selectedCountry.name}`
-                          : "Select Country Code"}
+                          : 'Select Country Code'}
                       </span>
 
-                      <FaChevronDown className="w-[10px] h-[10px] text-[#b8b8b8] ml-2" />
+                      <FaChevronDown className='w-[10px] h-[10px] text-[#b8b8b8] ml-2' />
                     </motion.div>
 
                     {touched.country && !selectedCountry && (
                       <motion.p
-                        className="text-red-500 text-xs"
+                        className='text-red-500 text-xs'
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3 }}
@@ -629,26 +629,26 @@ const CreateOrganization = () => {
                     {isCountryModalOpen && (
                       <div
                         ref={countryRef}
-                        className="absolute top-full left-0 w-[298px] bg-white rounded-lg backdrop-blur-sm border shadow-lg z-10"
+                        className='absolute top-full left-0 w-[298px] bg-white rounded-lg backdrop-blur-sm border shadow-lg z-10'
                       >
-                        <div className="p-4">
+                        <div className='p-4'>
                           <input
-                            type="text"
-                            className="w-full rounded-[10px] p-2 outline-none placeholder:text-[#B8B8B8] text-[16px] border"
-                            placeholder="Search country"
+                            type='text'
+                            className='w-full rounded-[10px] p-2 outline-none placeholder:text-[#B8B8B8] text-[16px] border'
+                            placeholder='Search country'
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                           />
                         </div>
 
-                        <div className="h-[200px] overflow-y-auto px-[20px] py-3">
+                        <div className='h-[200px] overflow-y-auto px-[20px] py-3'>
                           {filteredCountries.map((country) => (
                             <div
                               key={country.id}
-                              className="flex items-center p-2 hover:bg-gray-100 cursor-pointer"
+                              className='flex items-center p-2 hover:bg-gray-100 cursor-pointer'
                               onClick={() => handleCountrySelect(country)}
                             >
-                              <p className="text-[14px]">{country.name}</p>
+                              <p className='text-[14px]'>{country.name}</p>
                             </div>
                           ))}
                         </div>
@@ -658,38 +658,38 @@ const CreateOrganization = () => {
                 </div>
 
                 {/* State Field */}
-                <motion.div className="flex flex-col gap-1 relative">
+                <motion.div className='flex flex-col gap-1 relative'>
                   <label
-                    htmlFor="state"
-                    className="block text-sm font-medium text-[#717171]"
+                    htmlFor='state'
+                    className='block text-sm font-medium text-[#717171]'
                   >
-                    State / Region <span className="text-[#FF1925]">*</span>
+                    State / Region <span className='text-[#FF1925]'>*</span>
                   </label>
 
                   <motion.div
                     className={`flex items-center w-full p-4 border rounded-[9px] text-xl cursor-pointer
           ${
             touched.state && !formData.state
-              ? "border-red-500"
-              : "border-gray-300"
+              ? 'border-red-500'
+              : 'border-gray-300'
           }
                       ${
                         formData.state
-                          ? "border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]"
-                          : ""
+                          ? 'border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]'
+                          : ''
                       }`}
                     onClick={toggleStateModal}
                   >
-                    <span className="w-full text-[#b8b8b8] md:text-xl text-base">
-                      {selectedState ? `${selectedState.name}` : "Select State"}
+                    <span className='w-full text-[#b8b8b8] md:text-xl text-base'>
+                      {selectedState ? `${selectedState.name}` : 'Select State'}
                     </span>
 
-                    <FaChevronDown className="w-[10px] h-[10px] text-[#b8b8b8] ml-2" />
+                    <FaChevronDown className='w-[10px] h-[10px] text-[#b8b8b8] ml-2' />
                   </motion.div>
 
                   {touched.state && !selectedState && (
                     <motion.p
-                      className="text-red-500 text-xs"
+                      className='text-red-500 text-xs'
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
@@ -701,26 +701,26 @@ const CreateOrganization = () => {
                   {isStateModalOpen && (
                     <div
                       ref={stateRef}
-                      className="absolute top-full left-0 w-[298px] bg-white rounded-lg h-auto backdrop-blur-sm border shadow-lg z-10"
+                      className='absolute top-full left-0 w-[298px] bg-white rounded-lg h-auto backdrop-blur-sm border shadow-lg z-10'
                     >
-                      <div className="p-4">
+                      <div className='p-4'>
                         <input
-                          type="text"
-                          className="w-full rounded-[10px] p-2 outline-none placeholder:text-[#B8B8B8] text-[16px] border"
-                          placeholder="Search State"
+                          type='text'
+                          className='w-full rounded-[10px] p-2 outline-none placeholder:text-[#B8B8B8] text-[16px] border'
+                          placeholder='Search State'
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
                         />
                       </div>
 
-                      <div className="h-full  px-[20px] py-3">
+                      <div className='h-full  px-[20px] py-3'>
                         {filteredStates.map((state) => (
                           <div
                             key={state.id}
-                            className="flex items-center p-2 hover:bg-gray-100 cursor-pointer"
+                            className='flex items-center p-2 hover:bg-gray-100 cursor-pointer'
                             onClick={() => handleStateSelect(state)}
                           >
-                            <p className="text-[14px]">{state.name}</p>
+                            <p className='text-[14px]'>{state.name}</p>
                           </div>
                         ))}
                       </div>
@@ -730,39 +730,39 @@ const CreateOrganization = () => {
 
                 {/* Address Field */}
                 <motion.div
-                  className="flex flex-col gap-1"
+                  className='flex flex-col gap-1'
                   variants={itemVariants}
                 >
                   <label
-                    htmlFor="address"
-                    className="block text-sm font-medium text-[#717171]"
+                    htmlFor='address'
+                    className='block text-sm font-medium text-[#717171]'
                   >
-                    Full Address <span className="text-[#FF1925]">*</span>
+                    Full Address <span className='text-[#FF1925]'>*</span>
                   </label>
                   <motion.input
-                    type="text"
-                    id="address"
+                    type='text'
+                    id='address'
                     className={`w-full p-4 border rounded-[9px] outline-none text-[#b8b8b8] md:text-xl text-base
                       ${
                         touched.address && !formData.address
-                          ? "border-red-500"
-                          : "border-gray-300"
+                          ? 'border-red-500'
+                          : 'border-gray-300'
                       }
                       ${
                         formData.address
-                          ? "border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]"
-                          : ""
+                          ? 'border focus:border-[#009A49] focus:outline-none focus:ring-2 focus:ring-[#CCEBDB]'
+                          : ''
                       }`}
-                    placeholder="write your full address"
+                    placeholder='write your full address'
                     value={formData.address}
                     onChange={handleChange}
-                    onBlur={() => handleBlur("address")}
+                    onBlur={() => handleBlur('address')}
                     whileFocus={{ scale: 1.01 }}
-                    transition={{ type: "spring", stiffness: 400 }}
+                    transition={{ type: 'spring', stiffness: 400 }}
                   />
                   {touched.address && !formData.address && (
                     <motion.p
-                      className="text-red-500 text-xs"
+                      className='text-red-500 text-xs'
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.3 }}
@@ -776,7 +776,7 @@ const CreateOrganization = () => {
               {/* Error Message */}
               {error && (
                 <motion.p
-                  className="text-red-600 text-center text-sm"
+                  className='text-red-600 text-center text-sm'
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
@@ -787,7 +787,7 @@ const CreateOrganization = () => {
 
               {/* Sign Up Button*/}
               <motion.button
-                type="submit"
+                type='submit'
                 className={`w-full mx-auto ${
                   loading ||
                   !formData.orgName ||
@@ -796,8 +796,8 @@ const CreateOrganization = () => {
                   !formData.country ||
                   !formData.state ||
                   !formData.address
-                    ? "bg-[#d0d0d0]"
-                    : "bg-[#1b1b1b] hover:bg-[#1b1b1b] active:bg-[#1b1b1b]"
+                    ? 'bg-[#d0d0d0]'
+                    : 'bg-[#1b1b1b] hover:bg-[#1b1b1b] active:bg-[#1b1b1b]'
                 } text-white py-3 px-6 mt-2 rounded-[12px] font-medium transition duration-200 flex justify-center items-center gap-2 text-sm cursor-pointer`}
                 disabled={
                   loading ||
@@ -809,21 +809,21 @@ const CreateOrganization = () => {
                   !formData.address
                 }
                 variants={buttonVariants}
-                whileHover="hover"
-                whileTap="tap"
+                whileHover='hover'
+                whileTap='tap'
               >
                 {loading ? (
                   <motion.span
-                    className="size-4 border-2 border-white border-t-transparent rounded-full"
+                    className='size-4 border-2 border-white border-t-transparent rounded-full'
                     animate={{ rotate: 360 }}
                     transition={{
                       duration: 1,
                       repeat: Infinity,
-                      ease: "linear",
+                      ease: 'linear',
                     }}
                   ></motion.span>
                 ) : (
-                  "Register"
+                  'Register'
                 )}
               </motion.button>
             </motion.form>
@@ -832,12 +832,12 @@ const CreateOrganization = () => {
       </main>
 
       <motion.div
-        className="py-4"
+        className='py-4'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
       >
-        <p className="text-center text-xs text-gray-500">
+        <p className='text-center text-xs text-gray-500'>
           © Copyright 2025, Powered by Timbu Business
         </p>
       </motion.div>

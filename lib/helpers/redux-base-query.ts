@@ -5,15 +5,13 @@ import type {
 } from '@reduxjs/toolkit/query';
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Mutex } from 'async-mutex';
-
-import { useStorage } from './manage-store';
+import { getAccessToken, getRefreshToken } from './manage-store';
 
 const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
   baseUrl: '/api',
   prepareHeaders: (headers) => {
-    const { getAccessToken } = useStorage();
     const accessToken = getAccessToken();
 
     console.log('accessToken', accessToken);
@@ -38,7 +36,6 @@ export const baseQueryWithReauth: BaseQueryFn<
       result = await baseQuery(arguments_, api, extraOptions);
     } else {
       const release = await mutex.acquire();
-      const { getRefreshToken } = useStorage();
 
       const refreshToken = getRefreshToken();
 

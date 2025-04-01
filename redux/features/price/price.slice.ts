@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface InitialState {
   price: number | null;
@@ -11,7 +11,7 @@ const initialState: InitialState = {
 };
 
 const pricesSlice = createSlice({
-  name: "prices",
+  name: 'prices',
   initialState,
   reducers: {
     setPrice: (state, action: PayloadAction<number>) => {

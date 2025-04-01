@@ -1,6 +1,6 @@
-import Image from "next/image";
-import { FaTimes, FaMinus, FaPlus, FaChevronDown } from "react-icons/fa";
-import { useState } from "react";
+import Image from 'next/image';
+import { FaTimes } from 'react-icons/fa';
+// import { useState } from "react";
 
 interface PrintReceiptProps {
   isOpen: boolean;
@@ -8,97 +8,97 @@ interface PrintReceiptProps {
 }
 
 export default function PrintReceipt({ isOpen, onClose }: PrintReceiptProps) {
-  const [showCountrySelect, setShowCountrySelect] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState({
-    code: "+234",
-    flag: "🇳🇬",
-    name: "Nigeria",
-  });
+  // const [showCountrySelect, setShowCountrySelect] = useState(false);
+  // const [selectedCountry, setSelectedCountry] = useState({
+  //   code: "+234",
+  //   flag: "🇳🇬",
+  //   name: "Nigeria",
+  // });
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-[#24242433] bg-opacity-20 flex items-center justify-center p-2 sm:p-4 z-50">
-      <div className="bg-[#F6F8FA] shadow-lg max-w-[670px] w-full sm:w-[90%] md:w-[85%] lg:w-[670px] rounded-3xl flex flex-col gap-4 items-center p-4 h-[600px] overflow-y-auto">
+    <div className='fixed inset-0 bg-[#24242433] bg-opacity-20 flex items-center justify-center p-2 sm:p-4 z-50'>
+      <div className='bg-[#F6F8FA] shadow-lg max-w-[670px] w-full sm:w-[90%] md:w-[85%] lg:w-[670px] rounded-3xl flex flex-col gap-4 items-center p-4 h-[600px] overflow-y-auto'>
         {/* Customer Receipt */}
 
-        <div className="rounded-[10px] bg-white w-full sm:w-[630px] px-3 sm:px-6 flex flex-col h-[550px] overflow-y-auto">
-          <div className="flex justify-end w-full pt-2.5 sticky top-0 bg-white z-10 pr-0">
+        <div className='rounded-[10px] bg-white w-full sm:w-[630px] px-3 sm:px-6 flex flex-col h-[550px] overflow-y-auto'>
+          <div className='flex justify-end w-full pt-2.5 sticky top-0 bg-white z-10 pr-0'>
             <button
-              type="button"
-              aria-label="Close"
+              type='button'
+              aria-label='Close'
               onClick={onClose}
-              className="p-[9px] border border-[#1B1B1B] rounded-[9px] cursor-pointer hover:bg-[#D0D0D0] ml-auto"
+              className='p-[9px] border border-[#1B1B1B] rounded-[9px] cursor-pointer hover:bg-[#D0D0D0] ml-auto'
             >
               <FaTimes />
             </button>
           </div>
 
-          <div className="flex flex-col items-center justify-center">
+          <div className='flex flex-col items-center justify-center'>
             <Image
-              src="/modal-images/organization.svg"
+              src='/modal-images/organization.svg'
               width={62}
               height={49}
-              alt="Organization Logo"
-              className="w-auto h-auto"
+              alt='Organization Logo'
+              className='w-auto h-auto'
             />
 
-            <h2 className="text-lg sm:text-xl leading-7 font-circular-medium">
+            <h2 className='text-lg sm:text-xl leading-7 font-circular-medium'>
               Customer Receipt
             </h2>
           </div>
 
           <Image
-            src="/modal-images/divider2.svg"
+            src='/modal-images/divider2.svg'
             width={587}
             height={1}
-            alt="divider"
-            className="mt-8 w-full h-auto"
+            alt='divider'
+            className='mt-8 w-full h-auto'
           />
 
-          <div className="flex flex-col gap-3 mt-8">
+          <div className='flex flex-col gap-3 mt-8'>
             {/* Receipt details will go here */}
-            <div className="flex items-center w-full text-[#888888] text-sm font-circular-medium">
-              <p className="w-1/3 px-2">Item Name</p>
-              <p className="w-1/3 text-center px-2">Quantity</p>
-              <p className="w-1/3 text-right px-2">Subtotal</p>
+            <div className='flex items-center w-full text-[#888888] text-sm font-circular-medium'>
+              <p className='w-1/3 px-2'>Item Name</p>
+              <p className='w-1/3 text-center px-2'>Quantity</p>
+              <p className='w-1/3 text-right px-2'>Subtotal</p>
             </div>
 
-            <div className="flex items-center w-full text-[#2A2A2A] text-base">
-              <p className="w-1/3 px-2 capitalize truncate">
+            <div className='flex items-center w-full text-[#2A2A2A] text-base'>
+              <p className='w-1/3 px-2 capitalize truncate'>
                 Hair Dryer For Men
               </p>
-              <span className="w-1/3 text-center px-2">1</span>
-              <p className="w-1/3 text-right px-2">₦ 123,500</p>
+              <span className='w-1/3 text-center px-2'>1</span>
+              <p className='w-1/3 text-right px-2'>₦ 123,500</p>
             </div>
-            <div className="flex items-center w-full text-[#2A2A2A] text-lg font-circular-medium">
-              <p className="w-1/3 px-2">Total</p>
-              <span className="w-1/3 text-center px-2">1</span>
-              <p className="w-1/3 text-right px-2">₦ 123,500</p>
+            <div className='flex items-center w-full text-[#2A2A2A] text-lg font-circular-medium'>
+              <p className='w-1/3 px-2'>Total</p>
+              <span className='w-1/3 text-center px-2'>1</span>
+              <p className='w-1/3 text-right px-2'>₦ 123,500</p>
             </div>
           </div>
 
           <Image
-            src="/modal-images/divider2.svg"
+            src='/modal-images/divider2.svg'
             width={587}
             height={1}
-            alt="divider"
-            className="mt-8 w-full h-auto"
+            alt='divider'
+            className='mt-8 w-full h-auto'
           />
 
           {/* SMS */}
-          <div className="flex flex-col gap-3 mt-8">
+          <div className='flex flex-col gap-3 mt-8'>
             {/* Receipt details will go here */}
-            <div className="flex items-center w-full text-[#888888] text-sm font-circular-medium">
-              <p className="w-1/3 px-2">SMS to</p>
-              <p className="w-1/3 text-center px-2">Date</p>
-              <p className="w-1/3 text-right px-2">Time</p>
+            <div className='flex items-center w-full text-[#888888] text-sm font-circular-medium'>
+              <p className='w-1/3 px-2'>SMS to</p>
+              <p className='w-1/3 text-center px-2'>Date</p>
+              <p className='w-1/3 text-right px-2'>Time</p>
             </div>
 
-            <div className="flex items-center w-full text-[#2A2A2A] text-base">
-              <p className="w-1/3 px-2 capitalize truncate">+234 8147492647</p>
-              <span className="w-1/3 text-center px-2">Mon 13th Mar, 2025</span>
-              <p className="w-1/3 text-right px-2">11:00am</p>
+            <div className='flex items-center w-full text-[#2A2A2A] text-base'>
+              <p className='w-1/3 px-2 capitalize truncate'>+234 8147492647</p>
+              <span className='w-1/3 text-center px-2'>Mon 13th Mar, 2025</span>
+              <p className='w-1/3 text-right px-2'>11:00am</p>
             </div>
           </div>
 
@@ -118,18 +118,18 @@ export default function PrintReceipt({ isOpen, onClose }: PrintReceiptProps) {
           </div> */}
         </div>
 
-        <div className="w-full">
+        <div className='w-full'>
           <button
-            className="w-full
+            className='w-full
               bg-[#1B1B1B] 
-             text-white py-3 rounded-lg flex items-center cursor-pointer justify-center gap-2 transition-colors duration-200"
+             text-white py-3 rounded-lg flex items-center cursor-pointer justify-center gap-2 transition-colors duration-200'
           >
             <Image
-              src="/modal-images/print.svg"
-              alt="Print Receipt"
+              src='/modal-images/print.svg'
+              alt='Print Receipt'
               width={24}
               height={24}
-              className="w-auto h-auto"
+              className='w-auto h-auto'
             />
             Print Receipt
           </button>

@@ -1,23 +1,23 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const token = req.headers.get("authorization");
+    const token = req.headers.get('authorization');
 
     // Validate token before making the request
     if (!token) {
       return NextResponse.json(
-        { message: "Unauthorized: Token missing" },
+        { message: 'Unauthorized: Token missing' },
         { status: 401 }
       );
     }
 
-    const response = await fetch("https://api.timbu.cloud/organizations", {
-      method: "POST",
+    const response = await fetch('https://api.timbu.cloud/organizations', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
         Authorization: `${token}`,
       },
       body: JSON.stringify(body),
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
         {
           message: errorData.detail
             ? errorData.detail
-            : "Create Organization failed",
+            : 'Create Organization failed',
           error: errorData,
         },
         { status: response.status }
@@ -40,9 +40,9 @@ export async function POST(req: Request) {
     const data = await response.json();
     return NextResponse.json(data, { status: response.status });
   } catch (error: any) {
-    console.error("🔥 Internal Server Error:", error.message);
+    console.error('🔥 Internal Server Error:', error.message);
     return NextResponse.json(
-      { message: "Internal Server Error", error: error.message },
+      { message: 'Internal Server Error', error: error.message },
       { status: 500 }
     );
   }

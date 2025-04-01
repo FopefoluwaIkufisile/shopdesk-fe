@@ -14,7 +14,6 @@ interface DataTableToolbarProps<TData> {
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0;
   const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false);
 
   return (
@@ -36,13 +35,13 @@ export function DataTableToolbar<TData>({
           />
         </div>
         <button
-        type='button'
-        onClick={() => setIsAddStockModalOpen(true)}
-        className='text-[#2A2A2A] cursor-pointer h-10 flex justify-center items-center bg-white border font-circular-normal border-[#1B1B1B] rounded-lg pr-6 pl-4 max-[400px]:text-sm text-nowrap max-[1000px]:hidden mr-2 disabled:opacity-50'
-        // disabled={!isPremium && stockItems.length >= 10}
-      >
-        + Add New Stock
-      </button>
+          type='button'
+          onClick={() => setIsAddStockModalOpen(true)}
+          className='text-[#2A2A2A] cursor-pointer h-10 flex justify-center items-center bg-white border font-circular-normal border-[#1B1B1B] rounded-lg pr-6 pl-4 max-[400px]:text-sm text-nowrap max-[1000px]:hidden mr-2 disabled:opacity-50'
+          // disabled={!isPremium && stockItems.length >= 10}
+        >
+          + Add New Stock
+        </button>
         {/* {table.getColumn('status') && (
           <DataTableFacetedFilter
             column={table.getColumn('status')}
@@ -68,7 +67,6 @@ export function DataTableToolbar<TData>({
           </Button>
         )} */}
       </div>
-
 
       <AddStockModal
         isOpen={isAddStockModalOpen}

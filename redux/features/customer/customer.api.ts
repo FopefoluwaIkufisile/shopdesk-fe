@@ -1,4 +1,4 @@
-import { api } from "@/redux/api";
+import { api } from '@/redux/api';
 
 export interface Customer {
   id: string;
@@ -44,7 +44,7 @@ export const customersApi = api.injectEndpoints({
       {
         query: ({ organization_id }) =>
           `customers?organization_id=${organization_id}`,
-        providesTags: ["Customer"],
+        providesTags: ['Customer'],
       }
     ),
 
@@ -54,10 +54,10 @@ export const customersApi = api.injectEndpoints({
     >({
       query: ({ organization_id }) => ({
         url: `customers?organization_id=${organization_id}`,
-        method: "POST",
+        method: 'POST',
         // body: { organization_id },
       }),
-      invalidatesTags: ["Customer"],
+      invalidatesTags: ['Customer'],
     }),
   }),
 });

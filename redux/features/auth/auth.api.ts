@@ -1,7 +1,7 @@
-import { api } from "@/redux/api";
-import { store, type RootState } from "@/redux/store";
-import type { OrgType } from "@/types/org";
-import type { UserType } from "@/types/user";
+import { api } from '@/redux/api';
+import { store, type RootState } from '@/redux/store';
+import type { OrgType } from '@/types/org';
+import type { UserType } from '@/types/user';
 
 // TODO: Ensure uou add your response and request types in a types.ts file in the same folder e.g (SignupResponse, SignupRequest) see below for more details
 // interface UserBase {
@@ -39,6 +39,27 @@ import type { UserType } from "@/types/user";
 //   invalidatesTags: ["User"],
 // }),
 
+interface Organization {
+  id: string;
+  name: string;
+  mission: string;
+  initials: string;
+  currency_code: string;
+  business_type: string;
+  tagline: string;
+  slug: string;
+  image_url: string;
+  is_deleted: boolean;
+  date_created: string;
+  last_updated: string;
+  date_created_db: string;
+  last_updated_db: string;
+}
+
+export interface OrganizationResponse {
+  data: Organization[];
+}
+
 export const authApi = api.injectEndpoints({
   endpoints: (builder) => ({
     // TODO: all your endpoints must be typed
@@ -48,8 +69,8 @@ export const authApi = api.injectEndpoints({
       { email: string; password: string }
     >({
       query: ({ email, password }) => ({
-        url: "/auth/login/",
-        method: "POST",
+        url: '/auth/login/',
+        method: 'POST',
         body: {
           email,
           password,
@@ -59,8 +80,8 @@ export const authApi = api.injectEndpoints({
 
     signup: builder.mutation({
       query: (values) => ({
-        url: "/auth/signup/",
-        method: "POST",
+        url: '/auth/signup/',
+        method: 'POST',
         body: values,
       }),
     }),
@@ -84,16 +105,16 @@ export const authApi = api.injectEndpoints({
         const token = (store.getState() as RootState).auth.token;
 
         // 🔍 Debugging: Log token and body
-        console.log("🟢 Token Sent from Frontend:", token);
-        console.log("📝 Body Sent:", values);
+        console.log('🟢 Token Sent from Frontend:', token);
+        console.log('📝 Body Sent:', values);
 
         if (!token) {
-          throw new Error("Authorization token is missing");
+          throw new Error('Authorization token is missing');
         }
 
         return {
-          url: "/organization/create/",
-          method: "POST",
+          url: '/organization/create/',
+          method: 'POST',
           body: values,
           headers: {
             Authorization: `Bearer ${token}`,
@@ -139,8 +160,12 @@ export const authApi = api.injectEndpoints({
     //   }),
     // }),
     getUser: builder.query<UserType, void>({
-      query: () => "auth/user",
-      providesTags: ["User"],
+      query: () => 'auth/user',
+      providesTags: ['User'],
+    }),
+    getOrganizations: builder.query<OrganizationResponse, void>({
+      query: () => "organization",
+      providesTags: ["OrganizationImage"],
     }),
     // editUser: builder.mutation({
     //   query: (updatedData) => ({
@@ -170,6 +195,7 @@ export const {
   useSignupMutation,
   useGetUserQuery,
   useCreateOrgMutation,
+  useGetOrganizationsQuery,
   // useEditUserMutation,
   // useChangePasswordMutation,
   // useVerifyOtpMutation,

@@ -1,15 +1,22 @@
-import { Metadata } from "next";
-import Pricing from "./_components/Pricing";
+'use client';
 
-export const metadata: Metadata = {
-  title: "Pricing",
-  description:
-    "Explore our flexible pricing plans tailored to fit your business needs. Choose the perfect plan to manage your inventory, sales, and operations with ShopDesk.",
-};
+// import { Metadata } from "next";
+import Pricing from './_components/Pricing';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 const PricingPage = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 600,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100,
+    });
+  }, []);
+
   return <Pricing />;
 };
 
 export default PricingPage;
-

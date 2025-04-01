@@ -202,83 +202,81 @@ const Sidebar: React.FC<SidebarProps> = ({ selectedItem, onClose }) => {
       </div>
 
       <div className='fixed z-60'>
-      {isEditImageModalOpen && (
-        <EditImage
-          isOpen={isEditImageModalOpen}
+        {isEditImageModalOpen && (
+          <EditImage
+            isOpen={isEditImageModalOpen}
+            itemName={selectedItem.name}
+            existingImages={selectedItem.images || []}
+            onCancel={() => dispatch(closeEditImageModal())}
+            onSave={handleSaveImages}
+            onDeleteImage={() => void 0}
+          />
+        )}
+
+        {isEditModalOpen && (
+          <EditStockV3Modal
+            isOpen={isEditModalOpen}
+            item={selectedItem}
+            onClose={() => dispatch(closeEditModal())}
+            onSave={(updatedItem) => {
+              dispatch(saveItem(updatedItem));
+              dispatch(closeEditModal());
+            }}
+            openSuccessModal={() => dispatch(openSuccessModal())}
+          />
+        )}
+
+        {isEditQuantityOpen && (
+          <EditQuantityModal
+            isOpen={isEditQuantityOpen}
+            item={selectedItem}
+            onClose={() => dispatch(closeEditQuantity())}
+            onSave={(updatedItem) => {
+              dispatch(saveItem(updatedItem));
+              dispatch(closeEditQuantity());
+            }}
+            openSuccessModal={() => dispatch(openSuccessModal())}
+          />
+        )}
+
+        {isSuccessModalOpen && (
+          <EditSuccessModal
+            isOpen={isSuccessModalOpen}
+            onClose={() => dispatch(closeSuccessModal())}
+          />
+        )}
+
+        {isEditPriceOpen && (
+          <EditPriceModal
+            isOpen={isEditPriceOpen}
+            onClose={() => dispatch(closeEditPrice())}
+            item={selectedItem}
+            openSuccessModal={() => dispatch(openSuccessModal())}
+            onSave={handleSavePrice}
+          />
+        )}
+
+        {isEditNameOpen && (
+          <EditStockName
+            isOpen={isEditNameOpen}
+            item={selectedItem}
+            onClose={() => dispatch(closeEditName())}
+            onSave={(updatedItem) => {
+              dispatch(saveItem(updatedItem));
+              dispatch(closeEditName());
+            }}
+            openSuccessModal={() => dispatch(openSuccessModal())}
+          />
+        )}
+
+        <ImageUploader
+          isOpen={isImageUploaderOpen}
           itemName={selectedItem.name}
           existingImages={selectedItem.images || []}
-          onCancel={() => dispatch(closeEditImageModal())}
           onSave={handleSaveImages}
-          onDeleteImage={() => void 0}
+          onCancel={() => dispatch(closeImageUploader())}
         />
-      )}
-
-      {isEditModalOpen && (
-        <EditStockV3Modal
-          isOpen={isEditModalOpen}
-          item={selectedItem}
-          onClose={() => dispatch(closeEditModal())}
-          onSave={(updatedItem) => {
-            dispatch(saveItem(updatedItem));
-            dispatch(closeEditModal());
-          }}
-          openSuccessModal={() => dispatch(openSuccessModal())}
-        />
-      )}
-
-      {isEditQuantityOpen && (
-        <EditQuantityModal
-          isOpen={isEditQuantityOpen}
-          item={selectedItem}
-          onClose={() => dispatch(closeEditQuantity())}
-          onSave={(updatedItem) => {
-            dispatch(saveItem(updatedItem));
-            dispatch(closeEditQuantity());
-          }}
-          openSuccessModal={() => dispatch(openSuccessModal())}
-        />
-      )}
-
-      {isSuccessModalOpen && (
-        <EditSuccessModal
-          isOpen={isSuccessModalOpen}
-          onClose={() => dispatch(closeSuccessModal())}
-        />
-      )}
-
-      {isEditPriceOpen && (
-        <EditPriceModal
-          isOpen={isEditPriceOpen}
-          onClose={() => dispatch(closeEditPrice())}
-          item={selectedItem}
-          openSuccessModal={() => dispatch(openSuccessModal())}
-          onSave={handleSavePrice}
-        />
-      )}
-
-      {isEditNameOpen && (
-        <EditStockName
-          isOpen={isEditNameOpen}
-          item={selectedItem}
-          onClose={() => dispatch(closeEditName())}
-          onSave={(updatedItem) => {
-            dispatch(saveItem(updatedItem));
-            dispatch(closeEditName());
-          }}
-          openSuccessModal={() => dispatch(openSuccessModal())}
-        />
-      )}
-
-      <ImageUploader
-        isOpen={isImageUploaderOpen}
-        itemName={selectedItem.name}
-        existingImages={selectedItem.images || []}
-        onSave={handleSaveImages}
-        onCancel={() => dispatch(closeImageUploader())}
-      />
       </div>
-
-      
     </>
   );
 };

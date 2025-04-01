@@ -1,4 +1,5 @@
 import axiosRequest from '@/lib/axios';
+import { Product } from '@/types/product';
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {

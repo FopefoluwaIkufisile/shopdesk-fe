@@ -1,6 +1,6 @@
-import type { StockItem } from "@/types/stocks";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import type { StockItem } from '@/types/stocks';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 type Product = {
   id: string;
@@ -44,26 +44,26 @@ type State = {
   fetchMetrics: () => Promise<void>;
 };
 
-const getInitials = (name: string): string => {
+export const getInitials = (name: string): string => {
   return name
-    .split(" ")
+    .split(' ')
     .map((word) => word.charAt(0).toUpperCase())
-    .join("");
+    .join('');
 };
 
 export const useStore = create<State>()(
   persist(
     (set) => ({
-      organizationId: "",
-      organizationName: "",
-      organizationInitial: "",
+      organizationId: '',
+      organizationName: '',
+      organizationInitial: '',
       products: [],
       isProductLoading: false,
       revenueData: [],
       isRevenueLoading: false,
       isRevenueError: false,
       stockItems: [],
-      searchText: "",
+      searchText: '',
       isSearching: false,
       isPremium: false,
       setIsSearching: (isSearching) => set({ isSearching }),
@@ -71,17 +71,23 @@ export const useStore = create<State>()(
       metrics: [],
       isMetricsLoading: false,
       setOrganizationId: (organizationId) => set({ organizationId }),
-      setOrganizationName: (organizationName) => set({ organizationName }),
+      setOrganizationName: (organizationName) => {
+        set({ organizationName: organizationName });
+        set({ organizationInitial: getInitials(organizationName) });
+      },
       setOrganizationInitial: (organizationName) =>
         set({ organizationInitial: getInitials(organizationName) }),
       fetchProducts: async () => {
         set({ isProductLoading: true });
         try {
-          const res = await fetch("/api/product/get");
+          const organization_id = useStore.getState().organizationId;
+          const res = await fetch(
+            `/api/product/get?organization_id=${organization_id}`
+          );
           const data = await res.json();
           set({ products: data });
         } catch (error) {
-          console.error("Failed to fetch products", error);
+          console.error('Failed to fetch products', error);
         } finally {
           set({ isProductLoading: false });
         }
@@ -89,11 +95,11 @@ export const useStore = create<State>()(
       fetchRevenue: async () => {
         set({ isRevenueLoading: true, isRevenueError: false });
         try {
-          const res = await fetch("/api/reports/sales/generate");
+          const res = await fetch('/api/reports/sales/generate');
           const data = await res.json();
           set({ revenueData: data?.weeklyRevenue || [] });
         } catch (error) {
-          console.error("Failed to fetch revenue", error);
+          console.error('Failed to fetch revenue', error);
           set({ isRevenueError: true });
         } finally {
           set({ isRevenueLoading: false });
@@ -102,48 +108,48 @@ export const useStore = create<State>()(
       fetchMetrics: async () => {
         set({ isMetricsLoading: true });
         try {
-          const res = await fetch("/api/report/metrics");
+          const res = await fetch('/api/report/metrics');
           const data = await res.json();
           const transformedMetrics = [
             {
-              title: "Total Revenue",
+              title: 'Total Revenue',
               value: data.totalRevenue,
               change: data.revenueChange,
-              icon: "/icons/revenue.svg",
-              textColor: "text-grey-600",
+              icon: '/icons/revenue.svg',
+              textColor: 'text-grey-600',
             },
             {
-              title: "Gross Profit Margin",
+              title: 'Gross Profit Margin',
               value: data.grossProfit,
               change: data.grossChange,
-              icon: "/icons/gross.svg",
-              textColor: "text-grey-600",
+              icon: '/icons/gross.svg',
+              textColor: 'text-grey-600',
             },
             {
-              title: "Stock Turnover Rate",
+              title: 'Stock Turnover Rate',
               value: data.stockTurnover,
               change: data.stockChange,
-              icon: "/icons/stockturn.svg",
-              textColor: "text-gray-600",
+              icon: '/icons/stockturn.svg',
+              textColor: 'text-gray-600',
             },
             {
-              title: "Total Sale Transaction",
+              title: 'Total Sale Transaction',
               value: data.totalSales,
               change: data.salesChange,
-              icon: "/icons/TotalSale.svg",
-              textColor: "text-grey-600",
+              icon: '/icons/TotalSale.svg',
+              textColor: 'text-grey-600',
             },
           ];
           set({ metrics: transformedMetrics });
         } catch (error) {
-          console.error("Failed to fetch metrics:", error);
+          console.error('Failed to fetch metrics:', error);
         } finally {
           set({ isMetricsLoading: false });
         }
       },
     }),
     {
-      name: "organization-store",
+      name: 'organization-store',
     }
   )
 );

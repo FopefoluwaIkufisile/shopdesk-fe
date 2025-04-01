@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 interface TableState {
   isSalesExpanded: boolean;
@@ -11,7 +11,7 @@ const initialState: TableState = {
 };
 
 const tableSlice = createSlice({
-  name: "toggle",
+  name: 'toggle',
   initialState,
   reducers: {
     toggleSalesExpand: (state) => {

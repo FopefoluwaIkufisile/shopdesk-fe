@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import logo from '@/public/icons/logo.svg';
-import play from '@/public/coming-soon/Icon.svg';
+// import play from '@/public/coming-soon/Icon.svg';
 // import Log from '@/public/smart-business/_Logo Wrapper.svg';
 
 const Hero = () => {
@@ -22,8 +22,8 @@ const Hero = () => {
             </span>
           </h2>
           <p className='text-center font-[300] text-[18px] md:text-[24px] leading-[100%] text-[#5F5F5F]'>
-            Managing inventory and tracking stock records doesn't have to be
-            difficult. Shopdesk gives e-commerce entrepreneurs a simple yet
+            Managing inventory and tracking stock records doesn&apos;t have to
+            be difficult. Shopdesk gives e-commerce entrepreneurs a simple yet
             powerful inventory management tool to track, update, and organize
             stock records with ease.
           </p>

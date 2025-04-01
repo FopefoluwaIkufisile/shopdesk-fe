@@ -11,15 +11,11 @@ interface DrawerProps {
 const Drawer: React.FC<DrawerProps> = ({ isOpen, children }) => {
   const [drawerState, setDrawerState] = useState<string>('');
 
-
   useEffect(() => {
     if (isOpen) {
       setDrawerState('slide-up');
     }
   }, [isOpen]);
-
-
-
 
   return (
     <div
@@ -30,14 +26,13 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, children }) => {
         onClick={(e) => e.stopPropagation()}
       >
         {children}
-      <div className='flex flex-col mt-10'>
-        <p className='text-center'>
-          &copy; {new Date().getFullYear()}, Powered by Timbu Business
-        </p>
-      </div>
+        <div className='flex flex-col mt-10'>
+          <p className='text-center'>
+            &copy; {new Date().getFullYear()}, Powered by Timbu Business
+          </p>
+        </div>
       </div>
     </div>
-    
   );
 };
 

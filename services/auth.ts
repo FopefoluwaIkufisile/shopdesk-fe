@@ -1,13 +1,13 @@
-import { getAccessToken } from "@/app/api/token";
+import { getAccessToken } from '@/app/api/token';
 
 export async function loginUser(email: string, password: string) {
   const token = await getAccessToken();
   try {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       // headers: { 'Content-Type': 'application/json' },
@@ -16,26 +16,26 @@ export async function loginUser(email: string, password: string) {
 
     const data = await response.json();
     if (!response.ok) {
-      throw new Error(data.detail || "Login failed");
+      throw new Error(data.detail || 'Login failed');
     }
 
     return data;
   } catch (error) {
-    console.error("Login error:", error);
+    console.error('Login error:', error);
     throw error;
   }
 }
 
 export async function logoutUser() {
   try {
-    const response = await fetch("/api/auth/logout", {
-      method: "POST",
+    const response = await fetch('/api/auth/logout', {
+      method: 'POST',
     });
 
     const data = await response.json();
     console.log(data);
     if (!response.ok) {
-      throw new Error(data.message || "Logout failed");
+      throw new Error(data.message || 'Logout failed');
     }
     return data;
   } catch (error) {
@@ -52,9 +52,9 @@ export async function signUpUser(userData: {
   phone_country_code: string;
 }) {
   try {
-    const response = await fetch("/api/auth/signup", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch('/api/auth/signup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData),
     });
 
@@ -62,13 +62,13 @@ export async function signUpUser(userData: {
 
     if (!response.ok) {
       throw new Error(
-        `${data.message}: ${data.error?.detail || "Sign-up failed"}`
+        `${data.message}: ${data.error?.detail || 'Sign-up failed'}`
       );
     }
 
     return data;
   } catch (error) {
-    console.error("Sign-up error:", error);
+    console.error('Sign-up error:', error);
     throw error;
   }
 }
@@ -86,11 +86,11 @@ export async function createOrg(orgData: {
   const token = await getAccessToken();
 
   try {
-    const response = await fetch("/api/organization/create", {
-      method: "POST",
+    const response = await fetch('/api/organization/create', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(orgData),
@@ -101,14 +101,14 @@ export async function createOrg(orgData: {
     if (!response.ok) {
       throw new Error(
         `${data.message}: ${
-          data.error?.detail || "Organization creation failed"
+          data.error?.detail || 'Organization creation failed'
         }`
       );
     }
 
     return data;
   } catch (error) {
-    console.error("Organization creation error:", error);
+    console.error('Organization creation error:', error);
     throw error;
   }
 }

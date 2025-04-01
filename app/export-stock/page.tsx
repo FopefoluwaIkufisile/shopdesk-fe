@@ -5,7 +5,7 @@ import SuccessEmailModal from '@/components/modal/modalV8/export-sucess';
 function Page() {
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
-  const [emailDetails, setEmailDetails] = useState({
+  const [emailDetails] = useState({
     email: 'Mark.M@gmail.com',
     message: 'Stock data PDF has been sent to',
   });

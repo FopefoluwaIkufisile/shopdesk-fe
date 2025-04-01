@@ -1,8 +1,8 @@
-import { Metadata } from "next";
-import Policy from "./policyComponent";
+import { Metadata } from 'next';
+import Policy from './policyComponent';
 
 export const metadata: Metadata = {
-  title: "Policy",
+  title: 'Policy',
   description:
     "Learn about ShopDesk's terms of service, privacy policies, and guidelines for using our business inventory management solution.",
 };

@@ -1,7 +1,12 @@
 'use client';
 import { currencies } from '@/app/(auth)/create-organization/_components/CreateOrganization';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -25,20 +30,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { DialogClose } from '@radix-ui/react-dialog';
 import { Search } from 'lucide-react';
 import Image from 'next/image';
-import { SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import { toast } from 'sonner';
 import { z } from 'zod';
-
-interface StockResponse {
-  id: string;
-  name: string;
-  buying_price: number;
-  quantity: number;
-  currency_code: string;
-  date_created: string;
-}
 
 const formSchema = z.object({
   name: z.string().min(1, 'Product name is required'),
@@ -79,6 +75,7 @@ function AddStockModal({ isOpen, onOpenChange }: AddStockModalProps) {
       buying_price: '',
       quantity: '1',
       currency_code: 'NGN',
+      selling_price: '',
     },
   });
 
@@ -89,7 +86,6 @@ function AddStockModal({ isOpen, onOpenChange }: AddStockModalProps) {
     createProduct(createProductData)
       .unwrap()
       .then((response) => {
-        console.log(response.id);
         const request = {
           name: values.name,
           buying_price: Number(values.buying_price),
@@ -109,14 +105,10 @@ function AddStockModal({ isOpen, onOpenChange }: AddStockModalProps) {
         };
         createPrice(priceRequest)
           .unwrap()
-          .then((response) => {
-            console.log(response);
-          })
           .catch((error) => console.error(error));
         addStock(request)
           .unwrap()
-          .then((response) => {
-            console.log(response);
+          .then(() => {
             toast.success('Stock added successfully');
             onOpenChange(false);
           })
@@ -144,6 +136,7 @@ function AddStockModal({ isOpen, onOpenChange }: AddStockModalProps) {
       }}
     >
       <DialogContent className='bg-white rounded-lg shadow-lg w-full max-w-md p-6'>
+        <DialogTitle />
         <DialogHeader className='flex flex-row gap-2.5 items-center'>
           <div className='bg-[#CCEBDB] p-4 rounded-lg flex items-center justify-center'>
             <Image
@@ -202,14 +195,16 @@ function AddStockModal({ isOpen, onOpenChange }: AddStockModalProps) {
                               <SelectTrigger className='border-none pr-0 shadow-none'>
                                 {field.value ? (
                                   <div className='flex items-center'>
-                                    <img
+                                    <Image
                                       src={
                                         currencies.find(
                                           (c) => c.code === field.value
-                                        )?.flag
+                                        )?.flag || '/default-flag.svg'
                                       }
                                       alt={`${field.value} Flag`}
                                       className='w-6 h-6 rounded-full object-cover mr-2'
+                                      width={24}
+                                      height={24}
                                     />
                                     <span>
                                       {
@@ -250,7 +245,7 @@ function AddStockModal({ isOpen, onOpenChange }: AddStockModalProps) {
                                     value={currency.code}
                                   >
                                     <div className='flex items-center'>
-                                      <img
+                                      <Image
                                         src={currency.flag}
                                         alt={`${currency.name} Flag`}
                                         className='w-6 h-6 rounded-full object-cover mr-3'
@@ -312,14 +307,16 @@ function AddStockModal({ isOpen, onOpenChange }: AddStockModalProps) {
                               <SelectTrigger className='border-none pr-0 shadow-none'>
                                 {field.value ? (
                                   <div className='flex items-center'>
-                                    <img
+                                    <Image
                                       src={
                                         currencies.find(
                                           (c) => c.code === field.value
-                                        )?.flag
+                                        )?.flag || '/default-flag.svg'
                                       }
                                       alt={`${field.value} Flag`}
                                       className='w-6 h-6 rounded-full object-cover mr-2'
+                                      width={24}
+                                      height={24}
                                     />
                                     <span>
                                       {
@@ -360,7 +357,7 @@ function AddStockModal({ isOpen, onOpenChange }: AddStockModalProps) {
                                     value={currency.code}
                                   >
                                     <div className='flex items-center'>
-                                      <img
+                                      <Image
                                         src={currency.flag}
                                         alt={`${currency.name} Flag`}
                                         className='w-6 h-6 rounded-full object-cover mr-3'

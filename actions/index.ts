@@ -1,4 +1,6 @@
-"use server";
+'use server';
+
+import { Product } from "@/types/product";
 
 export const getAllProductIds = async (
   organization_id: string,
@@ -13,10 +15,10 @@ export const getAllProductIds = async (
     const res = await fetch(
       `https://api.timbu.cloud/products?organization_id=${organization_id}&page=${page}&size=${size}`,
       {
-        method: "GET",
+        method: 'GET',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
         },
       }

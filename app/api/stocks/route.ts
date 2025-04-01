@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { Product } from '@/types/product';
 
 const getAllProductIds = async (
   organization_id: string,

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import * as React from "react";
-import { Button } from "@/components/ui/button";
+import * as React from 'react';
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -9,17 +9,17 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import Image from "next/image";
-import deleteRed from "@/public/icons/delete-red.svg";
-import DeleteItemButton from "./components/DeleteItemButton";
+} from '@/components/ui/dialog';
+import Image from 'next/image';
+import deleteRed from '@/public/icons/delete-red.svg';
+import DeleteItemButton from './components/DeleteItemButton';
 
 interface DeleteItemProps {
   onCancel?: () => void;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   triggerElement?: React.ReactNode;
-  onDelete: (itemId: string) => void;
+  onDelete: (itemId: string | undefined) => Promise<void>;
   selectedItem?: { product_id: string };
 }
 
@@ -60,38 +60,38 @@ const DeleteItem: React.FC<DeleteItemProps> = ({
       {triggerElement && (
         <DialogTrigger asChild>{triggerElement}</DialogTrigger>
       )}
-      <DialogContent className="max-w-md rounded-xl p-0 overflow-hidden border border-gray-200">
-        <div className="relative">
-          <div className="pt-8 pb-4 flex flex-col items-center">
-            <div className="h-16 w-16 rounded-full bg-red-50 flex items-center justify-center mb-4">
+      <DialogContent className='max-w-md rounded-xl p-0 overflow-hidden border border-gray-200'>
+        <div className='relative'>
+          <div className='pt-8 pb-4 flex flex-col items-center'>
+            <div className='h-16 w-16 rounded-full bg-red-50 flex items-center justify-center mb-4'>
               <Image
                 src={deleteRed}
-                alt="delete icon"
+                alt='delete icon'
                 width={24}
                 height={24}
-                className="h-8 w-8"
+                className='h-8 w-8'
               />
             </div>
 
-            <DialogHeader className="text-center">
-              <DialogTitle className="text-2xl font-semibold">
+            <DialogHeader className='text-center'>
+              <DialogTitle className='text-2xl font-semibold'>
                 Delete Stock
               </DialogTitle>
             </DialogHeader>
 
-            <div className="text-center px-8 text-gray-600 mt-2">
+            <div className='text-center px-8 text-gray-600 mt-2'>
               Are you sure you want to delete this stock item? It will be hidden
               from the stock list but not permanently removed.
             </div>
           </div>
 
-          <div className="border-t border-gray-200"></div>
+          <div className='border-t border-gray-200'></div>
 
-          <DialogFooter className="flex p-4 gap-4">
+          <DialogFooter className='flex p-4 gap-4'>
             <Button
-              variant="outline"
+              variant='outline'
               onClick={handleCancel}
-              className="flex-1 py-6 rounded-md border-gray-200 hover:bg-gray-50 hover:text-gray-900"
+              className='flex-1 py-6 rounded-md border-gray-200 hover:bg-gray-50 hover:text-gray-900'
             >
               Cancel
             </Button>

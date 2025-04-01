@@ -1,5 +1,5 @@
-import { WeeklySalesData } from "@/types/sale";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { WeeklySalesData } from '@/types/sale';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface SalesState {
   isLoading: boolean;
@@ -14,7 +14,7 @@ const initialState: SalesState = {
 };
 
 const weeklySalesSlice = createSlice({
-  name: "sales",
+  name: 'sales',
   initialState,
   reducers: {
     startWeeklySalesLoading: (state) => {

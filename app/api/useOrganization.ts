@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const getInitials = (name: string): string => {
   return name
-    .split(" ")
+    .split(' ')
     .map((word) => word.charAt(0).toUpperCase())
-    .join("");
+    .join('');
 };
 
 export function useOrganization() {
@@ -17,8 +17,8 @@ export function useOrganization() {
   >(null);
 
   useEffect(() => {
-    const name = sessionStorage.getItem("organizationName");
-    setOrganizationId(sessionStorage.getItem("organizationId"));
+    const name = sessionStorage.getItem('organizationName');
+    setOrganizationId(sessionStorage.getItem('organizationId'));
     setOrganizationName(name);
     setOrganizationInitials(name ? getInitials(name) : null);
   }, []);

@@ -1,12 +1,12 @@
 'use client';
 
-import type { StockItem } from '@/types/stocks';
+// import type { StockItem } from '@/types/stocks';
 import { Plus, Search } from 'lucide-react';
 import type React from 'react';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Label } from '../ui/label';
-import type { Sale } from '@/types/sale';
+// import type { Sale } from '@/types/sale';
 
 // Todo please fix types
 interface SalesTabProps {

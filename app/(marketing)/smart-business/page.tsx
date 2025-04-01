@@ -1,17 +1,16 @@
-"use client"
+'use client';
 
-import React, { useEffect } from 'react'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import VideoSection from './components/VideoSection'
-import ProblemSolutionSection from './components/MeetShopdesk'
-import LeadCaptureForm from './components/LeadCaptureForm'
+import React, { useEffect } from 'react';
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import VideoSection from './components/VideoSection';
+import ProblemSolutionSection from './components/MeetShopdesk';
+import LeadCaptureForm from './components/LeadCaptureForm';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
-import Footer from './components/Footer'
+import Footer from './components/Footer';
 
-
-const  SmartBusiness = () => {
+const SmartBusiness = () => {
   useEffect(() => {
     Aos.init({
       duration: 800,
@@ -29,7 +28,7 @@ const  SmartBusiness = () => {
       <LeadCaptureForm />
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default  SmartBusiness
+export default SmartBusiness;
